@@ -1,0 +1,10 @@
+ifndef KERNELRELEASE
+	LINUX ?= /usr/src/linux
+	PWD := $(shell pwd)
+all:
+	$(MAKE) -C $(LINUX) SUBDIRS=$(PWD) modules
+clean:
+	rm -rf *.o *.ko *~ *.symvers *.mod.c *.order
+else
+obj-m := example.o
+endif
