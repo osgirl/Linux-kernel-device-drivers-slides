@@ -1,0 +1,21 @@
+Unable to handle kernel NULL pointer dereference at virtual address 00000000
+ printing eip:
+d083a064
+Oops: 0002 [#1]
+SMP
+CPU:     0
+EIP:     0060:[<d083a064>]     Not tainted
+EFLAGS: 00010246     (2.6.6)
+EIP is at faulty_write+0x4/0x10 [faulty]
+eax: 00000000    ebx: 00000000    ecx: 00000000 edx: 00000000
+esi: cf8b2460    edi: cf8b2480    ebp: 00000005 esp: c31c5f74
+ds: 007b    es: 007b    ss: 0068
+Process bash (pid: 2086, threadinfo=c31c4000 task=cfa0a6c0)
+Stack: c0150558 cf8b2460 080e9408 00000005 cf8b2480 00000000 cf8b2460 cf8b2460
+       fffffff7 080e9408 c31c4000 c0150682 cf8b2460 080e9408 00000005 cf8b2480
+       00000000 00000001 00000005 c0103f8f 00000001 080e9408 00000005 00000005
+Call Trace:
+ [<c0150558>] vfs_write+0xb8/0x130
+ [<c0150682>] sys_write+0x42/0x70
+ [<c0103f8f>] syscall_call+0x7/0xb
+Code: 89 15 00 00 00 00 c3 90 8d 74 26 00 83 ec 0c b8 00 a6 83 d0
