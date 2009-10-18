@@ -1,0 +1,20 @@
+#include <linux/rwsem.h>
+
+/* Semaphore initialisation.  */
+void init_rwsem(struct rw_semaphore *sem);
+
+/* P() - Probeer te verlagen (try to reduce). Only for reading */
+void down_read(struct rw_semaphore *sem);
+int down_read_trylock(struct rw_semaphore *sem);
+
+/* V() - Verhogen (increase). Only for reading!!! */
+void up_read(struct rw_semaphore *sem);
+
+/* P() - Probeer te verlagen (try to reduce). I can write... */
+void down_write(struct rw_semaphore *sem);
+int down_write_trylock(struct rw_semaphore *sem);
+
+/* V() - Verhogen (increase). Writing writing... */
+void up_write(struct rw_semaphore *sem);
+/* Change a write lock in a read lock.  */
+void downgrade_write(struct rw_semaphore *sem);

@@ -1,0 +1,16 @@
+#include <linux/completion.h>
+
+/* Statically defined completion.  */
+DECLARE_COMPLETION(my_completion);
+
+/* Dinamically defined completion.  */
+struct completion my_completion;
+/* ...  */
+init_completion(&my_completion);
+
+/* Wait for something to complete.  */
+void wait_for_completion(struct completion *c);
+
+/* Complete!  */
+void complete(struct completion *c);
+void complete_all(struct completion *c);

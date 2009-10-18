@@ -1,0 +1,12 @@
+struct semaphore sem;
+
+init_MUTEX_LOCKED(&sem);
+start_external_task(&sem);
+down(&sem):
+
+void external_task(struct semaphore *sem)
+{
+  [...snip...];
+  
+  up(sem);
+}

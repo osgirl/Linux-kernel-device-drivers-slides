@@ -1,0 +1,16 @@
+#include <asm/semaphore.h>
+
+/* Semaphore initialisation.  */
+void sema_init(struct semaphore *sem, int val);
+DECLARE_MUTEX(name);
+DECLARE_MUTEX_LOCKED(name);
+void init_MUTEX(struct semaphore *sem);
+void init_MUTEX_LOCKED(struct semaphore *sem);
+
+/* P() - Probeer te verlagen (try to reduce).  */
+void down(struct semaphore *sem);
+int down_interruptible(struct semaphore *sem);
+int down_trylock(struct semaphore *sem);
+
+/* V() - Verhogen (increase).  */
+void up(struct semaphore *sem);

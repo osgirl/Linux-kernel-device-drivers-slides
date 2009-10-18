@@ -159,79 +159,156 @@
 \section{Concurrency and Race conditions}
 \subsection{Semaphores and mutexes}
 \frame{\frametitle{Semaphores and mutexes}
-  
+  \scriptsize{
+    \lstinputlisting{semaphores.txt}
+  }  
 }
 
 % Slide: 19
 \subsection{Reader/writer Semaphores}
 \frame{\frametitle{Reader/writer semaphores}
-  
+  \tiny{
+    \lstinputlisting{rwsem.txt}
+  }    
 }
 
 % Slide: 20
 \subsection{Completions}
-\frame{\frametitle{Completions}
-  
+\frame{\frametitle{Comple...}
+  A common pattern in kernel programming involves initiating some activity outside of
+  the current thread, then waiting for that activity to complete.
+  \scriptsize{
+    \lstinputlisting{completions1.txt}
+  }
 }
 
 % Slide: 21
-\subsection{Spinlocks and...}
-\frame{\frametitle{Spinlocks and...}
-  
+\subsection{Completions}
+\frame{\frametitle{...tions}
+  \scriptsize{
+    \lstinputlisting{completions2.txt}
+  }
 }
 
 % Slide: 22
-\subsection{...Atomic Context!}
-\frame{\frametitle{...Atomic Context!}
-  
+\subsection{Spinlocks and...}
+\frame{\frametitle{Spinlocks and...}
+  \tiny{
+    \lstinputlisting{spinlocks.txt}
+  }  
 }
 
 % Slide: 23
-\subsection{Reader/Writer Spinlocks}
-\frame{\frametitle{Reader/Writer Spinlocks}
-  
+\subsection{...Atomic Context!}
+\frame{\frametitle{...Atomic Context!}
+  In atomic context (interrupt context, softirq context)\\
+  YOU CAN'T:
+  \begin{itemize}
+    \item Schedule
+    \item Sleep
+    \item Use semaphores (they could go to sleep)
+  \end{itemize}
+  and\\
+  \begin{center}
+    YOU MUST USE SPINLOCKS!\\
+  \end{center}
+  Otherwise:\\
+  \begin{center}
+    BUG: scheduling while atomic\\
+    kernel panic, not syncing. Aiiie, killing interrupt handler...
+  \end{center}
 }
 
 % Slide: 24
-\subsection{Locking Traps}
-\frame{\frametitle{Locking Traps}
-  
+\subsection{Reader/Writer Spinlocks}
+\frame{\frametitle{Reader/Writer Spinlocks}
+  \tiny{
+    \lstinputlisting{rwspinlocks.txt}
+  }
 }
 
 % Slide: 25
 \subsection{Lock-Free Algorithms}
 \frame{\frametitle{Lock-Free Algorithms}
-  
+  \begin{itemize}
+  \item Circular buffers
+  \item Atomic variables
+  \item Bit operations
+  \item seqlocks (continues...)
+  \item Read-Copy update (continues...)
+  \end{itemize}
 }
 
 % Slide: 26
-\subsection{Atomic Variables}
-\frame{\frametitle{Atomic Variables}
-  
+\subsection{seqlocks}
+\frame{\frametitle{seqlocks}
+  Read access works by obtaining an (unsigned) integer sequence value on entry into
+  the critical section. On exit, that sequence value is compared with the current value;
+  if there is a mismatch, the read access must be retried. As a result, reader code has a
+  form like the following:
+
+  \scriptsize{
+    \lstinputlisting{seqlocks.txt}
+  }
 }
 
 % Slide: 27
-\subsection{Bit Operations}
-\frame{\frametitle{Bit Operations}
-  
+\subsection{Read-Copy-Update}
+\frame{\frametitle{Read-Copy-Update}
+  \tiny{
+    \lstinputlisting{rcu.txt}
+  }
 }
 
 % Slide: 28
-\subsection{seqlocks}
-\frame{\frametitle{seqlocks}
+\section{Allocating memory}
+\subsection{The real story of kmalloc}
+\frame{\frametitle{The real story of kmalloc}
   
 }
 
 % Slide: 29
-\subsection{Read-Copy-Update}
-\frame{\frametitle{Read-Copy-Update}
+\subsection{Lookaside caches}
+\frame{\frametitle{Lookaside caches}
   
 }
 
 % Slide: 30
+\subsection{vmalloc and friends}
+\frame{\frametitle{vmalloc and friends}
+  
+}
+
+% Slide: 31
+\section{Communicating with hardware}
+\subsection{I/O Ports and I/O Memory}
+\frame{\frametitle{I/O Ports and I/O Memory}
+  
+}
+
+% Slide: 32
+\subsection{Using I/O Memory}
+\frame{\frametitle{Using I/O Memory}
+  
+}
+
+% Slide: 33
+\section{Interrupt handling}
+\subsection{Installing an interrupt handler}
+\frame{\frametitle{Installing an interrupt handler}
+
+}
+
+% Slide: 34
+\subsection{Top and bottom halves}
+\frame{\frametitle{Top and bottom halves}
+
+}
+
+% Slide: 35
 \subsection{Title}
 \frame{\frametitle{Title}
-  
+
 }
 
 % Document end

@@ -1,0 +1,9 @@
+seqlock_t lock;
+seqlock_init(lock);
+unsigned int seq;
+
+do {
+  seq = read_seqbegin(&lock);
+  /* Do what you need to do */
+ } while read_seqretry(&lock, seq);  
+}

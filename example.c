@@ -15,4 +15,4 @@ void example_exit(void)
 module_init(example_init);
 module_exit(example_exit);
 
-MODULE_LICENSE(EXAMPLE_LICENSE);
+MODULE_LICENSE("GPL");
