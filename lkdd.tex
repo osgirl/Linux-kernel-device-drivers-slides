@@ -254,9 +254,12 @@
 
 % Slide: 27
 \subsection{Read-Copy-Update}
-\frame{\frametitle{Read-Copy-Update}
-  \tiny{
+\frame{\frametitle{Read-Copy-Update}  
+  \scriptsize{
     \lstinputlisting{rcu.txt}
+  }
+  \tiny{
+    \lstinputlisting{rcu_link.txt}
   }
 }
 
@@ -264,51 +267,159 @@
 \section{Allocating memory}
 \subsection{The real story of kmalloc}
 \frame{\frametitle{The real story of kmalloc}
-  
+  \scriptsize{
+    \lstinputlisting{kmalloc.txt}
+  }
+  \begin{table}
+    \scriptsize{\caption{Flags:}}
+    \begin{tabular}{c c}      
+      \hline
+      Allocation priorities & Allocation flags\\
+      \hline  
+      GFP\_ATOMIC & \_\_GFP\_DMA\\
+      GFP\_KERNEL & \_\_GFP\_HIGHMEM\\
+      GFP\_USER & \_\_GFP\_COLD\\
+      GFP\_HIGHUSER & \_\_GFP\_NOWARN\\
+      GFP\_NOIO & \_\_GFP\_HIGH\\
+      GFP\_NOFS & \_\_GFP\_REPEAT\\    
+      & \_\_GFP\_NOFAIL\\
+      & \_\_GFP\_NORETRY\\
+    \end{tabular}
+  \end{table}
 }
 
 % Slide: 29
 \subsection{Lookaside caches}
 \frame{\frametitle{Lookaside caches}
+  \scriptsize{
+    A device driver often ends up allocating many objects of the same size, over and over.
+  }
+  \tiny{
+    \lstinputlisting{caches.txt}
+  }
   
 }
 
 % Slide: 30
-\subsection{vmalloc and friends}
-\frame{\frametitle{vmalloc and friends}
-  
+\subsection{Memory pools}
+\frame{\frametitle{Memory pools}
+  There are places in the kernel where memory allocations cannot be allowed to fail.
+  As a way of guaranteeing allocations in those situations, the kernel developers cre-
+  ated an abstraction known as a memory pool (or ''mempool''). A memory pool is
+  really just a form of a lookaside cache that tries to always keep a list of free memory
+  around for use in emergencies.
 }
 
 % Slide: 31
-\section{Communicating with hardware}
-\subsection{I/O Ports and I/O Memory}
-\frame{\frametitle{I/O Ports and I/O Memory}
-  
+\subsection{get_free_page and co}
+\frame{\frametitle{get\_free\_page and co}
+  \tiny{
+    \lstinputlisting{get_free_page.txt}
+  }
 }
 
 % Slide: 32
-\subsection{Using I/O Memory}
-\frame{\frametitle{Using I/O Memory}
-  
+\subsection{vmalloc and friends}
+\frame{\frametitle{vmalloc and friends}
+  \scriptsize{
+    vmalloc allocates a contiguous memory region in the virtual address space.\\
+    Although the pages are not consecutive in physical memory\\
+    the kernel sees them as a contiguous range of addresses.\\
+    vmalloc is described here because it is one of the fundamental Linux memory allocation mechanisms.\\
+    We should note, however, that use of vmalloc is discouraged in most\\
+    situations. Memory obtained from vmalloc is slightly less efficient to work with,\\
+    and, on some architectures, the amount of address space set aside for vmalloc is relatively small.\\
+    Code that uses vmalloc is likely to get a chilly reception if submitted for\\
+    inclusion in the kernel. If possible, you should work directly with individual pages\\
+    rather than trying to smooth things over with vmalloc.
+  }
 }
 
 % Slide: 33
-\section{Interrupt handling}
-\subsection{Installing an interrupt handler}
-\frame{\frametitle{Installing an interrupt handler}
-
+\subsection{vmalloc api}
+\frame{\frametitle{vmalloc api}
+  \scriptsize{
+    \lstinputlisting{vmalloc.txt}
+  }
 }
 
 % Slide: 34
-\subsection{Top and bottom halves}
-\frame{\frametitle{Top and bottom halves}
-
+\section{Communicating with hardware}
+\subsection{Communicating with hardware}
+\frame{\frametitle{Communicating with hardware}
+  \tiny{
+    \lstinputlisting{devmem.txt}
+  }
 }
 
 % Slide: 35
-\subsection{Title}
-\frame{\frametitle{Title}
+\subsection{Installing an interrupt handler}
+\frame{\frametitle{Installing an interrupt handler}
+  \tiny{
+    \lstinputlisting{interrupt.txt}
+  }
+  \begin{table}
+    \scriptsize{\caption{Flags:}}
+    \begin{tabular}{c}      
+      \hline
+      Interrupt flags:\\
+      \hline  
+      SA\_INTERRUPT\\
+      SA\_SHIRQ\\
+      SA\_SAMPLE\_RANDOM\\
+    \end{tabular}
+  \end{table}
+}
 
+% Slide: 36
+\subsection{Top and bottom halves}
+\frame{\frametitle{Top and bottom halves}
+  One of the main problems with interrupt handling is how to perform lengthy tasks\\
+  within a handler.\\
+  In the typical scenario, the top half saves device data to a device-specific buffer,\\
+  schedules its bottom half, and exits: this operation is very fast.\\
+  The bottom half then performs whatever other work is required,\\
+  such as awakening processes, starting up another I/O operation, and so on.\\
+  This setup permits the top half to service a new interrupt while the bottom half is still working.
+}
+
+% Slide: 37
+\section{Kernel data types}
+\subsection{Kernel data types}
+\frame{\frametitle{Kernel data types}
+  \scriptsize{
+    \begin{table}
+      \begin{tabular}{c c c c c c c c c c c}      
+        \hline
+        arch    & char & short & int & long & ptr & long\-long & u8 & u16 & u32 & u64\\
+        \hline  
+        i386    & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        alpha   & 1 & 2 & 4 & 8 & 8 & 8 & 1 & 2 & 4 & 8\\
+        armv4l  & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        ia64    & 1 & 2 & 4 & 8 & 8 & 8 & 1 & 2 & 4 & 8\\
+        m68k    & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        mips    & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        ppc     & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        sparc   & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        sparc64 & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
+        x86\_64 & 1 & 2 & 4 & 8 & 8 & 8 & 1 & 2 & 4 & 8\\
+      \end{tabular}
+    \end{table}
+  }
+}
+
+% Slide: 38
+\section{PCI Drivers}
+\subsection{PCI Drivers}
+\frame{\frametitle{PCI Drivers}
+  
+}
+
+% Slide: 39
+\section{Memory Mapping}
+\subsection{Memory Mapping}
+\frame{\frametitle{PCI Drivers}
+  
 }
 
 % Document end

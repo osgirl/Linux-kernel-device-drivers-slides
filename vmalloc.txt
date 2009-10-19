@@ -1,0 +1,9 @@
+#include <linux/vmalloc.h>
+
+/* Allocates memory and creates page tables.  */
+void *vmalloc(unsigned long size);
+void vfree(void * addr);
+
+/* Used to map device memory.  */
+void *ioremap(unsigned long offset, unsigned long size);
+void iounmap(void * addr);

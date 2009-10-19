@@ -1,0 +1,9 @@
+/* Register interrupt line.  */
+int request_irq(unsigned int irq,
+                irqreturn_t (*handler)(int, void *, struct pt_regs *),
+                unsigned long flags,
+		const char *dev_name,
+		void *dev_id);
+
+/* Free interrupt line.  */
+void free_irq(unsigned int irq, void *dev_id);

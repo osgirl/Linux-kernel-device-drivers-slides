@@ -1,5 +1,3 @@
-http://www.rdrop.com/users/paulmck/rclock/intro/rclock_intro.html
-
 struct my_stuff *stuff;
 rcu_read_lock( );
 stuff = find_the_stuff(args...);

@@ -1,0 +1,6 @@
+/* user space.  */
+void *malloc(size_t size);
+
+/* kernel space.  */
+#include <linux/slab.h>
+void *kmalloc(size_t size, int flags);

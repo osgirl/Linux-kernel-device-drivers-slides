@@ -1,0 +1,13 @@
+/* Returns a pointer to a new page and fills the page with zeros.  */
+get_zeroed_page(unsigned int flags);
+
+/* Similar to get_zeroed_page, but doesn't clear the page.  */
+__get_free_page(unsigned int flags);
+
+/* Allocates and returns a pointer to the first byte of a memory area that is 
+   potentially several (physically contiguous) pages long but doesn't zero the area.  */
+__get_free_pages(unsigned int flags, unsigned int order);
+
+/* Free Page(s).  */
+void free_page(unsigned long addr);
+void free_pages(unsigned long addr, unsigned long order);
