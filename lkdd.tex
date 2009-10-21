@@ -10,6 +10,7 @@
 \documentclass{beamer}
 \usepackage{beamerthemeshadow}
 \usepackage{listings}
+\usepackage{xcolor}
 \lstset{language=C}
 \setbeamertemplate{navigation symbols}{}
 \usetheme{Berkeley}
@@ -91,7 +92,7 @@
 \frame{\frametitle{printk}
   \begin{itemize}
     \item<1-> printf(''I am printf!'');
-    \item<2-> printk(''I am printk!'');
+    \item<2-> printk(KERN\_INFO ''I am printk!'');
     \item<3-> printf prototype: int printf(const char *format, ...);
     \item<3-> printk prototype: int printk(const char *fmt, ...);
   \end{itemize}
@@ -391,7 +392,7 @@
     \begin{table}
       \begin{tabular}{c c c c c c c c c c c}      
         \hline
-        arch    & char & short & int & long & ptr & long\-long & u8 & u16 & u32 & u64\\
+        arch    & char & short & int & long & ptr & long long & u8 & u16 & u32 & u64\\
         \hline  
         i386    & 1 & 2 & 4 & 4 & 4 & 8 & 1 & 2 & 4 & 8\\
         alpha   & 1 & 2 & 4 & 8 & 8 & 8 & 1 & 2 & 4 & 8\\
@@ -409,17 +410,21 @@
 }
 
 % Slide: 38
-\section{PCI Drivers}
-\subsection{PCI Drivers}
-\frame{\frametitle{PCI Drivers}
-  
+\section{Memory Layout}
+\subsection{Memory Layout}
+\frame{\frametitle{Memory Layout}
+  \includegraphics[scale=0.50]{memory.eps}
 }
 
 % Slide: 39
-\section{Memory Mapping}
-\subsection{Memory Mapping}
-\frame{\frametitle{PCI Drivers}
-  
+\section{Thanks}
+\subsection{Thanks}
+\frame{\frametitle{Thanks}
+  \begin{center}
+    \Huge{\textcolor{red}{typedef is evil!}\\
+      Thanks :-)
+    }
+  \end{center}
 }
 
 % Document end

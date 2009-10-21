@@ -4,6 +4,9 @@ all:
 # 	Convert jpeg images into eps
 	convert arch1.jpg arch1.eps
 	convert arch2.jpg arch2.eps
+	convert memory.gif memory.eps
+	convert physical.png physical.eps
+	convert typedef.png typedef.eps
 
 	@echo -n "Converting from latex to dvi..."
 # 	@latex ${SOURCE}.tex &> /dev/null
