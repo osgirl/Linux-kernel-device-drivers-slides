@@ -2,15 +2,18 @@ SOURCE="lkdd"
 
 all:
 # 	Convert jpeg images into eps
-	convert arch1.jpg arch1.eps
-	convert arch2.jpg arch2.eps
-	convert memory.gif memory.eps
-	convert physical.png physical.eps
-	convert typedef.png typedef.eps
+	@echo -n "Converting images..."
+	@convert arch1.jpg arch1.eps
+	@convert arch2.jpg arch2.eps
+	@convert memory.gif memory.eps
+	@convert physical.png physical.eps
+	@convert kernel.gif kernel.eps
+	@convert address_div.jpg address_div.eps
+	@convert emacs.png emacs.eps
+	@echo "DONE!"
 
 	@echo -n "Converting from latex to dvi..."
-# 	@latex ${SOURCE}.tex &> /dev/null
-	latex ${SOURCE}.tex
+	@latex ${SOURCE}.tex &> /dev/null
 	@echo "DONE!"
 
 	@echo -n "Converting from dvi to ps..."

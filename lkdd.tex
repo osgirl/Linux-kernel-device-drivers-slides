@@ -24,13 +24,15 @@
 \date{29th October 2009}
 
 % Slide: 1
-\frame{\titlepage}
-
-% Slide: 2
-\frame{\frametitle{Table of contents}\tableofcontents}
+\frame{
+  \titlepage
+  \begin{figure}
+    \includegraphics[scale=0.20]{emacs.eps}
+  \end{figure} 
+}
 
 %% LINUX SYSTEM ARCHITECTURE
-% Slide: 3
+% Slide: 2
 \section{Linux system architecture}
 \subsection{Linux system architecture}
 \frame{\frametitle{Linux system architecture}
@@ -44,7 +46,7 @@
   \end{columns}
 }
 
-% Slide: 4
+% Slide: 3
 \subsection{Linux kernel architecture}
 \frame{\frametitle{Linux kernel architecture}
   \begin{columns}
@@ -63,8 +65,13 @@
   \end{columns}
 }
 
+\subsection{Linux kernel architecture detailed}
+\frame{\frametitle{... in detail}
+  \includegraphics[scale=0.50]{kernel.eps}
+}
+
 %% BUILDING AND RUNNING MODULES
-% Slide: 5
+% Slide: 4
 \section{Building and running modules}
 \subsection{A polite module...}
 \frame{\frametitle{A polite module...}
@@ -75,7 +82,7 @@
   }
 }
 
-% Slide: 6
+% Slide: 5
 \subsection{...and his Makefile}
 \frame{\frametitle{...and his Makefile}
   \makebox{
@@ -86,7 +93,7 @@
 }
 
 %% DEBUGGING TECHNIQUES
-% Slide: 7->9
+% Slide: 6->8
 \section{Debugging techniques}
 \subsection{printk}
 \frame{\frametitle{printk}
@@ -98,7 +105,7 @@
   \end{itemize}
 }
 
-% Slide: 10->11
+% Slide: 9->10
 \subsection{Log level values}
 \frame{\frametitle{Log level values}
   \begin{itemize}
@@ -107,7 +114,7 @@
   \end{itemize}
 }
 
-% Slide: 12
+% Slide: 11
 \frame{\frametitle{Log level values}
   \makebox{
     \scriptsize{
@@ -116,7 +123,7 @@
   }
 }
 
-% Slide: 13->15
+% Slide: 12->14
 \subsection{mmm... proc... what's that?!?}
 \frame{\frametitle{mmm... proc... what's that?!?}
   \begin{itemize}
@@ -125,12 +132,12 @@
     3\hspace{1.5cm}4\hspace{1.5cm}1\hspace{1.5cm}7
   }
   \item<2-> Current Default Minimum Boottime
-  \item<3-> echo 8 > /proc/sys/kernel/printk
+  \item<3-> echo 8 $>$ /proc/sys/kernel/printk
   \item<3-> if the value is set to 8, all messages, including debugging ones, are displayed.
   \end{itemize}
 }
 
-% Slide: 16
+% Slide: 15
 \subsection{Other debugging techniques}
 \frame{\frametitle{Other debugging techniques}
   \begin{itemize}
@@ -148,7 +155,7 @@
   \end{itemize}
 }
 
-% Slide: 17
+% Slide: 16
 \subsection{OOOOOOOPS!}
 \frame{\frametitle{OOOOOOOPS!}
   \tiny{
@@ -156,7 +163,7 @@
   }
 }
 
-% Slide: 18
+% Slide: 17
 \section{Concurrency and Race conditions}
 \subsection{Semaphores and mutexes}
 \frame{\frametitle{Semaphores and mutexes}
@@ -165,7 +172,7 @@
   }  
 }
 
-% Slide: 19
+% Slide: 18
 \subsection{Reader/writer Semaphores}
 \frame{\frametitle{Reader/writer semaphores}
   \tiny{
@@ -173,7 +180,7 @@
   }    
 }
 
-% Slide: 20
+% Slide: 19
 \subsection{Completions}
 \frame{\frametitle{Comple...}
   A common pattern in kernel programming involves initiating some activity outside of
@@ -183,7 +190,7 @@
   }
 }
 
-% Slide: 21
+% Slide: 20
 \subsection{Completions}
 \frame{\frametitle{...tions}
   \scriptsize{
@@ -191,7 +198,7 @@
   }
 }
 
-% Slide: 22
+% Slide: 21
 \subsection{Spinlocks and...}
 \frame{\frametitle{Spinlocks and...}
   \tiny{
@@ -199,7 +206,7 @@
   }  
 }
 
-% Slide: 23
+% Slide: 22
 \subsection{...Atomic Context!}
 \frame{\frametitle{...Atomic Context!}
   In atomic context (interrupt context, softirq context)\\
@@ -220,7 +227,7 @@
   \end{center}
 }
 
-% Slide: 24
+% Slide: 23
 \subsection{Reader/Writer Spinlocks}
 \frame{\frametitle{Reader/Writer Spinlocks}
   \tiny{
@@ -228,7 +235,7 @@
   }
 }
 
-% Slide: 25
+% Slide: 24
 \subsection{Lock-Free Algorithms}
 \frame{\frametitle{Lock-Free Algorithms}
   \begin{itemize}
@@ -240,7 +247,7 @@
   \end{itemize}
 }
 
-% Slide: 26
+% Slide: 25
 \subsection{seqlocks}
 \frame{\frametitle{seqlocks}
   Read access works by obtaining an (unsigned) integer sequence value on entry into
@@ -253,7 +260,7 @@
   }
 }
 
-% Slide: 27
+% Slide: 26
 \subsection{Read-Copy-Update}
 \frame{\frametitle{Read-Copy-Update}  
   \scriptsize{
@@ -264,7 +271,7 @@
   }
 }
 
-% Slide: 28
+% Slide: 27
 \section{Allocating memory}
 \subsection{The real story of kmalloc}
 \frame{\frametitle{The real story of kmalloc}
@@ -289,7 +296,7 @@
   \end{table}
 }
 
-% Slide: 29
+% Slide: 28
 \subsection{Lookaside caches}
 \frame{\frametitle{Lookaside caches}
   \scriptsize{
@@ -301,17 +308,17 @@
   
 }
 
-% Slide: 30
+% Slide: 29
 \subsection{Memory pools}
 \frame{\frametitle{Memory pools}
   There are places in the kernel where memory allocations cannot be allowed to fail.
-  As a way of guaranteeing allocations in those situations, the kernel developers cre-
-  ated an abstraction known as a memory pool (or ''mempool''). A memory pool is
+  As a way of guaranteeing allocations in those situations, the kernel developers created
+  an abstraction known as a memory pool (or ''mempool''). A memory pool is
   really just a form of a lookaside cache that tries to always keep a list of free memory
   around for use in emergencies.
 }
 
-% Slide: 31
+% Slide: 30
 \subsection{get_free_page and co}
 \frame{\frametitle{get\_free\_page and co}
   \tiny{
@@ -319,7 +326,7 @@
   }
 }
 
-% Slide: 32
+% Slide: 31
 \subsection{vmalloc and friends}
 \frame{\frametitle{vmalloc and friends}
   \scriptsize{
@@ -336,7 +343,7 @@
   }
 }
 
-% Slide: 33
+% Slide: 32
 \subsection{vmalloc api}
 \frame{\frametitle{vmalloc api}
   \scriptsize{
@@ -344,7 +351,7 @@
   }
 }
 
-% Slide: 34
+% Slide: 33
 \section{Communicating with hardware}
 \subsection{Communicating with hardware}
 \frame{\frametitle{Communicating with hardware}
@@ -353,7 +360,7 @@
   }
 }
 
-% Slide: 35
+% Slide: 34
 \subsection{Installing an interrupt handler}
 \frame{\frametitle{Installing an interrupt handler}
   \tiny{
@@ -372,7 +379,7 @@
   \end{table}
 }
 
-% Slide: 36
+% Slide: 35
 \subsection{Top and bottom halves}
 \frame{\frametitle{Top and bottom halves}
   One of the main problems with interrupt handling is how to perform lengthy tasks\\
@@ -384,7 +391,7 @@
   This setup permits the top half to service a new interrupt while the bottom half is still working.
 }
 
-% Slide: 37
+% Slide: 36
 \section{Kernel data types}
 \subsection{Kernel data types}
 \frame{\frametitle{Kernel data types}
@@ -409,10 +416,16 @@
   }
 }
 
-% Slide: 38
+% Slide: 37
 \section{Memory Layout}
 \subsection{Memory Layout}
 \frame{\frametitle{Memory Layout}
+  \includegraphics[scale=0.50]{address_div.eps}
+}
+
+% Slide: 38
+\subsection{Memory Layout}
+\frame{\frametitle{Memory UM}
   \includegraphics[scale=0.50]{memory.eps}
 }
 
@@ -422,7 +435,7 @@
 \frame{\frametitle{Thanks}
   \begin{center}
     \Huge{\textcolor{red}{typedef is evil!}\\
-      Thanks :-)
+      Thanks :-)      
     }
   \end{center}
 }
